@@ -7,6 +7,7 @@ ${USERNAME_INPUT}    id=username
 ${PASSWORD_INPUT}    id=password
 ${LOGIN_BUTTON}      id=Login
 ${SIT_SSO_BUTTON}    xpath=//*[self::button or self::a][contains(normalize-space(.), 'Login with SIT SSO')]
+${CASES_TAB}         xpath=//a/span[contains(text(),'Cases')]
 
 *** Keywords ***
 Login To Salesforce
@@ -30,3 +31,8 @@ Login Through SIT SSO
 Wait For Salesforce Home
     [Arguments]    ${timeout}=60s
     Wait Until Location Does Not Contain    login    ${timeout}
+
+Verify Cases Tab
+    [Arguments]    ${timeout}=60s
+    Wait Until Element Is Visible    ${CASES_TAB}    ${timeout}
+    Element Should Contain    ${CASES_TAB}    Cases

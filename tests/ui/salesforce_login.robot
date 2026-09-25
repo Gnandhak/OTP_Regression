@@ -9,3 +9,4 @@ Suite Teardown    Close Salesforce Browser
 Salesforce SIT SSO Login Smoke Test
     Login Through SIT SSO    ${SF_MANUAL_SSO}    ${SF_LOGIN_TIMEOUT}
     Wait For Salesforce Home
+    Verify Cases Tab
