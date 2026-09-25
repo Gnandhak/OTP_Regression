@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+# SMTP_PASSWORD must be supplied as a runtime/Copado secret, not committed.
+
+__pycache__/
+*.py[cod]
+output/
+output.xml
+log.html
+report.html
+
+screenshots/
+.runtime/
