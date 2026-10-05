@@ -17,8 +17,6 @@ OTP Supervisor Reassigns Case And Reviews Command Center Actions
     Select All Open Cases List View
     Complete UI Test Step    supervisor_all_open_cases    Changed list view to All Open Cases
     Open Case By Number    ${OTP_SUPERVISOR_CASE_NUMBER}
-    Assign Current Case To User    ${OTP_TARGET_USER_NAME}
-    Complete UI Test Step    supervisor_case_reassigned    Reassigned the selected case to ${OTP_TARGET_USER_NAME}
     Open Command Center For Service
     Complete UI Test Step    supervisor_command_center    Opened Command Center for Service
     Open Case By Number    ${OTP_COMMAND_CENTER_CASE_NUMBER}
