@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 SF_LOGIN_URL = os.environ.get("SF_LOGIN_URL", "https://homeservehs--sit.sandbox.my.salesforce.com/")
-SF_BROWSER = os.environ.get("SF_BROWSER", "chrome")
+SF_BROWSER = os.environ.get("SF_BROWSER", "edge")
 SF_HEADLESS = os.environ.get("SF_HEADLESS", "false").lower()
 SF_MANUAL_SSO = os.environ.get("SF_MANUAL_SSO", "true").lower()
 SF_PROFILE_DIR = os.environ.get(
