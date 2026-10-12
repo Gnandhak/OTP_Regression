@@ -36,6 +36,9 @@ OTP Privacy Allocator Verifies Created Privacy Case
     Select All Open Privacy Cases
     Open Privacy Case From Search
     Verify Privacy Case Details
+    Case Actioning Task Overview    ${DATA.WorkOrderStatus}    ${DATA.WorkOrderCompletionNote}
+    Customer response task status    ${DATA.CustomerResponseWorkOrderStatus}    ${DATA.CustomerResponseCompletionNote}
+    Closure Task Summary    ${DATA.ClosureTaskStatus}    ${DATA.ClosureTaskNote}
 
 Verify Privacy Intake WAV Notification Exists
     [Documentation]    Requires the integration to provide the exact WAV artifact path for this intake.

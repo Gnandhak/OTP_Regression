@@ -9,6 +9,22 @@ DATA = {
 	"ContactName": os.environ.get("PRIVACY_CONTACT_NAME", ""),
 	"Subject": os.environ.get("PRIVACY_CASE_SUBJECT", ""),
 	"Description": os.environ.get("PRIVACY_CASE_DESCRIPTION", ""),
+	"WorkOrderStatus": os.environ.get("PRIVACY_WORK_ORDER_STATUS", ""),
+	"WorkOrderCompletionNote": os.environ.get(
+		"PRIVACY_WORK_ORDER_COMPLETION_NOTE",
+		"Customer via Email work order status completion",
+	),
+	"CustomerResponseWorkOrderStatus": os.environ.get(
+		"PRIVACY_CUSTOMER_RESPONSE_WORK_ORDER_STATUS", ""
+	),
+	"CustomerResponseCompletionNote": os.environ.get(
+		"PRIVACY_CUSTOMER_RESPONSE_COMPLETION_NOTE",
+		"Customer response work order status completion",
+	),
+	"ClosureTaskStatus": os.environ.get(
+		"PRIVACY_CLOSURE_TASK_STATUS", "Tasks Complete"
+	),
+	"ClosureTaskNote": os.environ.get("PRIVACY_CLOSURE_TASK_NOTE", "case closed"),
 }
 
 PRIVACY_FORM_URL = os.environ.get("PRIVACY_FORM_URL", "")
@@ -41,3 +57,39 @@ PRIVACY_SF_PRIVACY_TYPE_LOCATOR = os.environ.get("PRIVACY_SF_PRIVACY_TYPE_LOCATO
 PRIVACY_SF_CASE_OWNER_LOCATOR = os.environ.get("PRIVACY_SF_CASE_OWNER_LOCATOR", "")
 PRIVACY_TASK_OVERVIEW_LOCATOR = os.environ.get("PRIVACY_TASK_OVERVIEW_LOCATOR", "")
 PRIVACY_TASK_STATUS_LOCATOR = os.environ.get("PRIVACY_TASK_STATUS_LOCATOR", "")
+PRIVACY_TASK_OVERVIEW_UPDATE_LOCATOR = os.environ.get(
+	"PRIVACY_TASK_OVERVIEW_UPDATE_LOCATOR",
+	"xpath=(//*[@title='Update Work Order Status'])[2]",
+)
+PRIVACY_TASK_OVERVIEW_STATUS_DROPDOWN_LOCATOR = os.environ.get(
+	"PRIVACY_TASK_OVERVIEW_STATUS_DROPDOWN_LOCATOR",
+	'xpath=//*[@id="combobox-button-314"]',
+)
+PRIVACY_CUSTOMER_RESPONSE_UPDATE_LOCATOR = os.environ.get(
+	"PRIVACY_CUSTOMER_RESPONSE_UPDATE_LOCATOR",
+	"xpath=(//*[@title='Update Work Order Status'])[3]",
+)
+PRIVACY_CUSTOMER_RESPONSE_STATUS_DROPDOWN_LOCATOR = os.environ.get(
+	"PRIVACY_CUSTOMER_RESPONSE_STATUS_DROPDOWN_LOCATOR",
+	'xpath=//*[@id="combobox-button-531"]',
+)
+PRIVACY_CUSTOMER_RESPONSE_NEXT_BUTTON_LOCATOR = os.environ.get(
+	"PRIVACY_CUSTOMER_RESPONSE_NEXT_BUTTON_LOCATOR",
+	"xpath=//*[@class='slds-button slds-button_brand']",
+)
+PRIVACY_CLOSURE_TASK_BADGES_LOCATOR = os.environ.get(
+	"PRIVACY_CLOSURE_TASK_BADGES_LOCATOR",
+	"xpath=(//span[contains(@class,'slds-badge')])",
+)
+PRIVACY_CLOSURE_TASK_STATUS_DROPDOWN_LOCATOR = os.environ.get(
+	"PRIVACY_CLOSURE_TASK_STATUS_DROPDOWN_LOCATOR",
+	'xpath=//*[@id="combobox-button-682"]',
+)
+PRIVACY_CLOSURE_TASK_NOTE_LOCATOR = os.environ.get(
+	"PRIVACY_CLOSURE_TASK_NOTE_LOCATOR",
+	"xpath=//*[@class='slds-textarea']",
+)
+PRIVACY_CLOSE_CASE_BUTTON_LOCATOR = os.environ.get(
+	"PRIVACY_CLOSE_CASE_BUTTON_LOCATOR",
+	"xpath=//button[@class='slds-button slds-button_brand']",
+)

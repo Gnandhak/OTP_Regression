@@ -10,7 +10,6 @@ ${CASE_STATUS_COMBOBOX}                  xpath=//*[@data-target-selection-name='
 ${CASE_PRIORITY_COMBOBOX}                xpath=(//flexipage-field[@data-field-id='RecordPriorityField']//button[@role='combobox'])[2]
 ${NEW_CASE_NUMBER_FIELD}                 xpath=(//*[@name='primaryField'])[1]
 ${CONTACT_NAME_LOOKUP_INPUT}             xpath=//*[@id='combobox-input-207']
-${UPDATE_WORK_ORDER_STATUS}              xpath=(//*[@title='Update Work Order Status'])[2]
 ${CASE_SUBJECT_INPUT}                    xpath=//*[@name='Subject']
 ${CASE_DESCRIPTION_INPUT}                xpath=//textarea[@name='Description']
 
@@ -180,16 +179,62 @@ Verify Privacy Case Details
     Element Should Contain    ${PRIVACY_SF_CASE_OWNER_LOCATOR}    Privacy Queue
     Complete UI Test Step    privacy_case_values_verified    Verified request origin, privacy type, and queue ownership
 
-Verify Privacy Task Overview Shows Completed Status
-    Require Setting    ${PRIVACY_TASK_OVERVIEW_LOCATOR}    PRIVACY_TASK_OVERVIEW_LOCATOR
-    Require Setting    ${PRIVACY_TASK_STATUS_LOCATOR}    PRIVACY_TASK_STATUS_LOCATOR
-    Wait Until Element Is Visible    ${PRIVACY_TASK_OVERVIEW_LOCATOR}    30s
-    Click Element    ${PRIVACY_TASK_OVERVIEW_LOCATOR}
-    Wait Until Element Is Visible    ${UPDATE_WORK_ORDER_STATUS}    30s
-    Click Element    ${UPDATE_WORK_ORDER_STATUS}
-    Wait Until Element Is Visible    ${PRIVACY_TASK_STATUS_LOCATOR}    30s
-    Element Should Contain    ${PRIVACY_TASK_STATUS_LOCATOR}    Completed
-    Complete UI Test Step    privacy_task_completed    Verified the Privacy Task Overview status is Completed
+Case Actioning Task Overview
+    [Arguments]    ${work_order_status}    ${completion_note}
+    Require Setting    ${work_order_status}    DATA.WorkOrderStatus
+    Require Setting    ${completion_note}    DATA.WorkOrderCompletionNote
+    Click Element    ${PRIVACY_TASK_OVERVIEW_UPDATE_LOCATOR}
+    ${dialog_header}=    Set Variable    xpath=//h2[normalize-space(.)='Update Work Order Status']
+    Wait Until Element Is Visible    ${dialog_header}    15s
+    Element Should Contain    ${dialog_header}    Update Work Order Status
+    Click Element    ${PRIVACY_TASK_OVERVIEW_STATUS_DROPDOWN_LOCATOR}
+    ${status_option}=    Set Variable    xpath=//*[@role='option' and normalize-space(.)="${work_order_status}"]
+    Wait Until Element Is Visible    ${status_option}    15s
+    Click Element    ${status_option}
+    ${completion_input}=    Set Variable    xpath=//div[@contenteditable='true' and @role='textbox']
+    Wait Until Element Is Visible    ${completion_input}    15s
+    Input Text    ${completion_input}    ${completion_note}
+    Click Element    xpath=//*[@title='Save']
+    Wait Until Element Is Not Visible    ${dialog_header}    15s
+    Complete UI Test Step    privacy_task_actioned    Updated work order status to ${work_order_status} and saved the completion note
+
+Customer response task status
+    [Arguments]    ${work_order_status}    ${completion_note}
+    Require Setting    ${work_order_status}    DATA.CustomerResponseWorkOrderStatus
+    Require Setting    ${completion_note}    DATA.CustomerResponseCompletionNote
+    Click Element    ${PRIVACY_CUSTOMER_RESPONSE_UPDATE_LOCATOR}
+    Click Element    ${PRIVACY_CUSTOMER_RESPONSE_STATUS_DROPDOWN_LOCATOR}
+    ${status_option}=    Set Variable    xpath=//*[@role='option' and normalize-space(.)="${work_order_status}"]
+    Wait Until Element Is Visible    ${status_option}    15s
+    Click Element    ${status_option}
+    ${completion_input}=    Set Variable    xpath=//div[@contenteditable='true' and @role='textbox']
+    Wait Until Element Is Visible    ${completion_input}    15s
+    Input Text    ${completion_input}    ${completion_note}
+    Click Element    xpath=//*[@title='Save']
+    Wait Until Element Is Visible    ${PRIVACY_CUSTOMER_RESPONSE_NEXT_BUTTON_LOCATOR}    15s
+    Click Element    ${PRIVACY_CUSTOMER_RESPONSE_NEXT_BUTTON_LOCATOR}
+    Complete UI Test Step    privacy_customer_response_task_actioned    Updated customer response work order status to ${work_order_status} and saved the completion note
+
+Closure Task Summary
+    [Arguments]    ${closure_status}    ${closure_note}
+    Require Setting    ${closure_status}    DATA.ClosureTaskStatus
+    Require Setting    ${closure_note}    DATA.ClosureTaskNote
+    ${badge_count}=    Get Element Count    ${PRIVACY_CLOSURE_TASK_BADGES_LOCATOR}
+    Should Be True    ${badge_count} > 0    No closure task status badges were found.
+    FOR    ${index}    IN RANGE    ${badge_count}
+        ${badge_number}=    Evaluate    ${index} + 1
+        ${badge_locator}=    Set Variable    ${PRIVACY_CLOSURE_TASK_BADGES_LOCATOR}[${badge_number}]
+        Element Should Contain    ${badge_locator}    Completed
+    END
+    Click Element    ${PRIVACY_CLOSURE_TASK_STATUS_DROPDOWN_LOCATOR}
+    ${closure_status_option}=    Set Variable    xpath=//*[@role='option' and normalize-space(.)="${closure_status}"]
+    Wait Until Element Is Visible    ${closure_status_option}    15s
+    Click Element    ${closure_status_option}
+    Wait Until Element Is Visible    ${PRIVACY_CLOSURE_TASK_NOTE_LOCATOR}    15s
+    Input Text    ${PRIVACY_CLOSURE_TASK_NOTE_LOCATOR}    ${closure_note}
+    Wait Until Element Is Visible    ${PRIVACY_CLOSE_CASE_BUTTON_LOCATOR}    15s
+    Click Element    ${PRIVACY_CLOSE_CASE_BUTTON_LOCATOR}
+    Complete UI Test Step    privacy_case_closed    Verified all task badges are Completed and closed the case with status ${closure_status}
 
 Validate Salesforce Privacy Case Settings
     Require Setting    ${SF_LOGIN_URL}    SF_LOGIN_URL
